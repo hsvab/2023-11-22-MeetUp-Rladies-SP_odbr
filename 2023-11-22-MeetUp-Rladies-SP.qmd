@@ -1,0 +1,478 @@
+---
+title: "**Pacote odbr**"
+subtitle: "Uma fonte de dados das pesquisas origem-destino brasileiras"
+author: "[Haydée Svab](https://www.linkedin.com/in/hsvab/)"
+format: 
+  rladies-revealjs:
+    footer: "Slides by [Haydée Svab](https://www.linkedin.com/in/hsvab/) (@hsvab), made with [Quarto](https://quarto.org/docs/presentations/revealjs/index.html). Code available [on GitHub](https://github.com/hsvab/latinr2023-championsprogram)."
+incremental: false
+embed-resources: true
+---
+
+# Introdução
+
+## Objetivo
+
+
+Disponibilizar dados de pesquisas origem destino (OD) brasileiras num único lugar,
+tornando estes dados abertos mais acessíveis e potencializando seu uso.
+
+## Motivação
+
+- Minha dissertação de mestrado [1]
+- Dados iniciais: 6 coortes de São Paulo (1977, 1987, 1997, 2007 e 2017) e com 
+outra sendo produzida em 2023
+- Maximizar o uso dos dados em si e do impacto da minha pesquisa
+
+
+## Primeiros passos
+
+<br>
+
+::: columns
+::: {.column width="50%"}
+
+- Há pacotes similares?
+   - [od](https://cran.r-project.org/web/packages/od/vignettes/od.html)
+   - Não é um pacote de dados
+   - Disponibiliza funções para analisar dados de pesquisas OD
+
+:::
+
+::: {.column width="50%"}
+
+- Pacotes para inspirar:
+[geobr](https://cran.r-project.org/web/packages/geobr/index.html), [aopdata](https://cran.r-project.org/web/packages/aopdata/index.html),
+[censobr](https://cran.r-project.org/web/packages/censobr/index.html)
+   - Pacotes de dados
+   - Do Brasil
+   - Co-mentoria de Rafael Pereira (IPEA): conversas no 1o e no 2o semestre de 2023
+
+:::
+:::
+
+![](images/footsteps_icon.png "Title: footsteps icon"){height=150px fig-align="center"  fig-alt="footsteps icon"}
+
+# Questões estratégicas
+
+## Questões estratégicas
+
+<br>
+
+- Serão dados de São Paulo ou de todo Brasil?
+
+- Serão apenas bases no formato original ou haverá algum tipo de hamonização?
+
+- Havendo harmonização, como serão?
+
+- Em que língua estão os dados? Em que língua será feito o pacote?
+
+![](images/estrategia.png "Title: strategy icon"){width=270px fig-align="center"  fig-alt="strategy icon"}
+
+
+
+## Abrangência
+
+<br>
+
+- Serão dados de São Paulo ou de todo Brasil?
+
+Não só de São Paulo.
+
+Mas nem todas cidades têm pesquisa OD.
+
+E nem toda cidade que tem pesquisa OD disponibiliza abertamente.
+
+Prioridade: cidades que têm e disponibilizam suas pesquisas OD como dado aberto.
+
+Possibilidade de colaboração de comunidade de especialistas e desenvolvedores.
+
+## Nível de tratamento dos dados
+
+<br>
+
+- Serão apenas bases no formato original ou haverá algum tipo de hamonização?
+
+Sempre disponibilizar dados brutos.
+
+Formatos, dados e forma de coleta variam bastante entre as cidades.
+
+Se possível, disponibilizar dados hormonizados ao longo do tempo, para a mesma cidade.
+
+
+## Até onde harmonizar dados
+
+<br>
+
+- Havendo harmonização, como serão?
+
+Harmonização pressupõe escolhas.
+
+Não é possível prever todas as decisões e escolhas, mas é importante documentá-las e disponibilizá-las.
+
+Quem desejar fazer outas escolhas, pode fazê-las a partir dos dados brutos.
+
+
+## Língua
+
+<br>
+
+- Em que língua estão os dados? Em que língua será feito o pacote?
+
+O código, os comandos e a documentaçõe serão feitos em inglês.
+
+O conteúdo dos dados permance em português (inalterado).
+
+Para tornar mais acessível o uso de dados, os dicionários serão disponibilizados em 3 línguas: português do Brasil, inglês e espanhol.
+
+
+# Principais funções
+<br>
+para quem usa
+
+## Principais funções do pacote **odbr**
+
+<br>
+
+- [read_od()](https://github.com/hsvab/odbr/blob/main/R/read_od.R)
+
+<br>
+
+- [read_map()](https://github.com/hsvab/odbr/blob/main/R/read_map.R)
+
+<br>
+
+- [read_dictionary()](https://github.com/hsvab/odbr/blob/main/R/read_dictionary.R)
+
+
+## Função read_od()
+
+- O que faz:
+    
+    Baixa os dados de uma pesquisa específica de Origem e Destino e retorná-los como um dataframe. 
+
+- Parâmetros:
+
+    city, year e hamonize (TRUE, FALSE)
+
+- Valores padrão (caso nada seja especificado):
+
+    city: São Paulo
+
+    year: 2017
+
+    harmonize: FALSE
+
+## Função read_map()
+
+- O que faz:
+    
+    Baixa os dados geodésicos para uma determinada Pesquisa Origem-Destino e retorna um dataframe sf.
+
+- Parâmetros:
+
+    city, year, hamonize (TRUE, FALSE) e geometry (zone, district, municipality)
+
+- Valores padrão (caso nada seja especificado):
+
+    city: São Paulo
+
+    year: 2017
+
+    harmonize: FALSE
+    
+    geometry: zone
+    
+## Função read_dictionary()
+
+- O que faz:
+
+    Retorna o dicionário de dados de uma determinada Pesquisa Origem-Destino, se disponível. 
+
+- Parâmetros:
+
+    city, year, hamonize (TRUE, FALSE) e language (pt, en, es)
+
+- Valores padrão (caso nada seja especificado):
+
+    city: São Paulo
+
+    year: 2017
+
+    harmonize: FALSE
+    
+    language: pt
+
+
+# Funções úteis
+<br>
+para quem desenvolve
+
+
+## Funções úteis no pacote **odbr**
+
+- [compose_file_path()](https://github.com/hsvab/odbr/blob/main/R/utils.R)
+
+<br>
+
+- [compose_name()](https://github.com/hsvab/odbr/blob/main/R/utils.R)
+
+<br>
+
+- [clean_string()](https://github.com/hsvab/odbr/blob/main/R/utils.R)
+
+<br>
+
+- [upload_sav_db_to_repo()](https://github.com/hsvab/odbr/blob/main/R/utils.R)
+
+## Função compose_file_path()
+
+<br>
+
+Compõe o nome do caminho, de forma padronizada
+    
+```{r}{echo=FALSE}
+compose_file_path <- function(city, year, harmonize) {
+  city_text <- clean_string(city)
+
+  harmonized_text <- "not_harmonized"
+  if (harmonize == TRUE) {
+    harmonized_text <- "harmonized"
+  }
+  filepath <- paste0("data-raw/", city_text, "/", year, "/", harmonized_text)
+
+  return(filepath)
+}
+```
+
+## Função compose_name()
+
+<br>
+
+Compõe o nome do arquivo, de forma padronizada
+
+    
+```{r}{echo=FALSE}
+compose_name <- function(city, year, harmonize, level = "od") {
+  city_text <- clean_string(city)
+
+  harmonized_text <- "not_harmonized"
+  if (harmonize == TRUE) {
+    harmonized_text <- "harmonized"
+  }
+
+  level_text <- clean_string(level)
+
+  name <- paste0(level_text, "_", city_text, "_", year, "_", harmonized_text)
+  return(name)
+}
+```
+
+## Função clean_string()
+
+<br>
+
+Remove caracteres não ASCII
+
+```{r}{echo=FALSE}
+clean_string <- function(text) {
+  gsub("~", "", gsub(" ", "_", tolower(iconv(text, to = "ASCII//TRANSLIT"))))
+}
+```
+
+## Função upload_sav_db_to_repo()
+
+Converte arquivos sav para csv.gz
+
+
+```{r}{echo=FALSE}
+upload_sav_db_to_repo <- function(city, year, harmonize, repository, tag) {
+  base_filename <- paste0(compose_file_path(city, year, harmonize), "/",
+    compose_name(city, year, harmonize)
+  )
+
+  # Creating the filename to download in order to read the raw data
+  filename_to_download <- paste0(base_filename, ".sav") 
+  od <- haven::read_sav(filename_to_download)
+
+  # Creating compacted filename
+  compacted_filename <- paste0(base_filename, ".csv.gz") 
+
+  # Compacting the file (.gz)
+  data.table::fwrite(od, file = compacted_filename, sep = ";")
+
+  # Uploading a file to a specific release from odbr repo (see parameter)
+  piggyback::pb_upload(
+    file = compacted_filename,
+    repo = repository,
+    tag = tag
+  )
+}
+```
+
+# Principais dificuldades | desafios técnicos | submissão no CRAN
+
+## Como lidar com grandes bases de dados
+
+- Apendizado com experiência do [geobr](https://cran.r-project.org/web/packages/geobr/index.html)
+- **Solução:** utilização do [piggyback](https://cran.r-project.org/web/packages/piggyback/index.html) e disponibilização como _assets_
+
+![](images/assets.png "Title: odbr repo print screen of assets"){height=450px fig-align="center"  fig-alt="odbr repo print screen of assets"}
+
+## Como limitar / controlar o tempo de execução no CRAN
+
+- Da Política do CRAN: _"Checking the package should take as little CPU time as possible"_ (...) _"Examples should run for no more than a few seconds each"_
+- Do stackoverflow / issues no Github: tempo de execução não superior a 5s por exemplo
+- Apendizado com experiência do [censobr](https://github.com/ipeaGIT/censobr)
+- Pacotes com download de dados são muito dependente de qualidade da conexão
+- **Solução:** não executar os exemplos
+
+## Como limitar / controlar o tempo de execução no CRAN
+
+```{r}{echo=FALSE}
+#' @description
+#' `read_od()` download the data for a specific Origin Destination survey and return it as a dataframe.
+#' It uses the cached data file if it was previously downloaded to avoid extra networking consumption. 
+#' To understand the returned dataframe format, please reefer to the `read_dictionary()` function for 
+#' the same survey cohort.
+#'
+#' @template city
+#' @template year
+#' @template harmonize
+#'
+#' @return A `"data.frame"` object.
+#' @export
+#' @family Microdata
+#'
+#' @examplesIf identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+#' library(odbr)
+#'
+#' # return data from OD Surveys database as data.frame
+#' df <- read_od(
+#'   city = "Sao Paulo",
+#'   year = 2017,
+#'   harmonize = FALSE
+#' )
+```
+
+
+## [styler](https://cran.r-project.org/web/packages/styler/index.html) _versus_ [lintr](https://cran.r-project.org/web/packages/lintr/index.html)
+
+
+- styler é um formatador de código segundo um guia de estilo, cujo padrão a implementação do tidyverse.
+- lintr verifica a aderência a um determinado estilo, erros de sintaxe e possíveis problemas semânticos.
+- Seguem regras de estilo diferentes
+- Muitas vezes os conflitos implicavam não passar pelo RMDcheck (um dos testes) no CI (integração contínua)
+- **Solução:** executar styler antes do lintr
+
+    
+## Problemas com idioma latino
+
+::: columns
+::: {.column width="50%"}
+
+- Palavras acentuadas ou outras fora do dicionário "inglês" (por exemplo, São e Paulo) geraram "notes" na submissão para o CRAN
+- **Solução:** construção da função build_wordlist na tentativa de "enriquecer o dicionário" ou retirar as palavras não reconhecidas
+
+:::
+
+::: {.column width="50%"}
+
+```{r}{echo=FALSE}
+# Build the wordlist of valid words not in the
+# "English" dictionary
+build_wordlist <- function() {
+  words <- c(
+    "CMD",
+    "Codecov",
+    "Isoda",
+    "Metrô",
+    "Oliveira",
+    "Paulo",
+    "Rabatone",
+    "SIRGAS",
+    "Sao",
+    "São",
+    "od",
+    "rOpenSci"
+  )
+  saveRDS(words,
+          file = ".aspell/odbr.rds",
+          version = 2)
+}
+```
+
+:::
+:::
+
+# Documentação
+
+<br>
+ou como tornar a informação mais acessível para mais gente
+
+
+## Princípios
+
+- Documentar bem cada função: título, descrição, parâmetros, retornos e exemplos
+
+    > ver cada o script R de cada função principal do pacote
+  
+- Fazer um ReadMe completo e sucinto
+
+    > ver arquivo README.Rmd
+    
+- Fazer a vignette do pacote
+
+    > ver arquivo odbr.Rmd
+
+## Pacote devtools é seu amigo
+
+Para gerar documentação:
+
+`devtools::build_manual()`
+
+`devtools::build_readme()`
+
+`devtools::build_vignettes()`
+
+`devtools::build_site()`
+
+
+# Agradecimentos
+
+## Nada é possível sozinha...
+
+- Liderança de [Yanina Bellini Saibene](https://github.com/yabellini) no [programa Champions da rOpenSci](https://ropensci.org/champions/) com muita paciência, incentivo e acolhimento
+- Mentoria de [Beatriz Milz](https://github.com/beatrizmilz) pelo [programa Champions da rOpenSci](https://ropensci.org/champions/) (e pela vida!) com muitos encontros _hands-on_
+- Orientação de [Rafael Pereira](https://github.com/rafapereirabr) do IPEA com 2 conversas e muitos emails, mensagens e issues
+- Apoio de [Diego Rabatone](https://github.com/diraol) que fez várias contribuições de código e ficou com nosso filho no colo inúmeras vezes
+- Logotipo do pacote de [Marcos Kyioto](https://www.instagram.com/redes.urbanas/) entusiasta de transportes públicos e cidades justas que ajudou a dar cor ao código
+- [Comunidade RLadies São Paulo](https://www.meetup.com/rladies-sao-paulo/)
+
+## Obrigada!
+
+<br>
+
+**@hsvab**
+
+hsvab@hsvab.eng.br
+
+![](images/yanina.jpeg "Title: Haydee e Yanina na LatinR2023"){width=250px fig-alt="Haydee e Yanina na LatinR2023"}
+
+## Referências
+
+<br>
+
+- [Pacotes](https://curso-r.github.io/main-pacotes/slides/index.html#1), material da curso-r
+
+- [R for Data Science](https://r4ds.had.co.nz/functions.html), capítulo sobre funções
+
+- [R Packages](https://r-pkgs.org/), livro para aprofundar conhecimento no desenvolvimento de pacotes
+
+- Repositórios do GitHub: [bases de dados](https://github.com/hsvab/mestrado-usp-ODs) e [algoritmos](https://github.com/hsvab/mestrado-usp-algoritmos) do mestrado,
+[pacote odbr](https://github.com/hsvab/odbr),
+[pacote aopdata](https://cran.r-project.org/web/packages/aopdata/index.html), 
+[pacote censobr](https://cran.r-project.org/web/packages/censobr/index.html),
+[pacote geobr](https://github.com/ipeaGIT/geobr)
+
+- [Svab, H. (2016). Evolução dos padrões de deslocamento na região metropolitana de São Paulo: a necessidade de uma análise de gênero. Dissertação de Mestrado, Escola Politécnica / USP, São Paulo.](https://www.teses.usp.br/teses/disponiveis/3/3138/tde-30092016-142308/pt-br.php)
